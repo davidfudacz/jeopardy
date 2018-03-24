@@ -18,13 +18,6 @@ io.on('connection', function (socket) {
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!');
     console.log(socket.id);
-
-    socket.on('draw', (start, end, color) => {
-        console.log(start, end, color);
-        socket.broadcast.emit('draw', start, end, color);
-    })
-
-
     socket.on('disconnect', () => {
 
         console.log(":(", socket.id);
@@ -36,5 +29,5 @@ io.on('connection', function (socket) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/index.html'));
 });
