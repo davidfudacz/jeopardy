@@ -10,7 +10,7 @@ export default class Sidebar extends React.Component {
   render() {
     return (
         <div className='sidebar'>
-            <h1>Teams</h1>
+            <h1>TEAMS</h1>
             
             <div className="team">
               <div className="teamName">

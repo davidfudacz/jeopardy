@@ -29,6 +29,9 @@ io.on('connection', function (socket) {
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!');
     console.log(socket.id);
+    socket.on('questionClicked', (question) => {
+      console.log(question);
+    });
     socket.on('disconnect', () => {
 
         console.log(":(", socket.id);
