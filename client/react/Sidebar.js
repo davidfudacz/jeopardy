@@ -10,9 +10,34 @@ export default class Sidebar extends React.Component {
   render() {
     return (
         <div className='sidebar'>
-          <section>
-            <h4>Teams</h4>
-          </section>
+            <h1>Teams</h1>
+            
+            <div className="team">
+              <div className="teamName">
+              Team Kevin is a long name
+              </div>
+              <div className="teamScore">
+              500
+              </div>
+            </div>
+            
+            <div className="team">
+              <div className="teamName">
+              Team Ellen
+              </div>
+              <div className="teamScore">
+              500
+              </div>
+            </div>
+            
+            <div className="team">
+              <div className="teamName">
+              Team Pat
+              </div>
+              <div className="teamScore">
+              500
+              </div>
+            </div>
         </div>
     );
   }
