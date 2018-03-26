@@ -15,19 +15,16 @@ socket.on('connect', function () {
 });
 
 
-const questions = document.getElementsByClassName('question');
-console.log(Array.prototype.slice.call(questions));
-// Array.prototype.slice.call(questions).forEach(question => {
-//   console.log(question);
-//   // question.setAttribute('background-color','red');
-//   // question.addEventListener('click', (question) => {
-//   //   socket.emit('questionClicked', question);
-//   // })
-// });
-
-
 console.log('Hello React');
 
 
 ReactDOM.render(<Main />, document.getElementById('app'))
 
+
+let questions = document.getElementsByClassName('question');
+Array.prototype.forEach.call(questions, (question) => {
+  question.onclick = () => {
+    console.log(question);
+    socket.emit('questionClicked', question.innerHTML);
+  }
+});
