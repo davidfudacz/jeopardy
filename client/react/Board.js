@@ -195,6 +195,7 @@ export default class Board extends React.Component {
         }
       ],
       doubleJeopardy: false,
+      currentQuestion: {},
     }
   }
 
@@ -202,7 +203,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <div id="board">
-        {this.state.board.map(category => <Categories key={category.id} name={category.name} questions={category.questions} />)}
+        {this.props.board.map(category => <Categories key={category.id} name={category.name} questions={category.questions} />)}
       </div>
     );
   }

@@ -30,9 +30,9 @@ io.on('connection', function (socket) {
     console.log('A new client has connected!');
     console.log(socket.id);
 
-    socket.on('questionClicked', (question,pointVal) => {
-      console.log('Points:',pointVal);
-      console.log('Question:',question);
+    socket.on('questionClicked', (question) => {
+      console.log('Points:',question.pointVal);
+      console.log('Question:',question.question);
     });
 
     socket.on('disconnect', () => {
