@@ -1,13 +1,164 @@
 import React from 'react';
+import Categories from './Categories';
 
 
 export default class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
-      pointVals: [100, 200, 300, 400, 500],
-      questions: [],
+      board: [
+        {
+          name: 'Category 1',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        },
+        {
+          name: 'Category 2',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        },
+        {
+          name: 'Category 3',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        },
+        {
+          name: 'Category 4',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        },
+        {
+          name: 'Category 5',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        },
+        {
+          name: 'Category 6',
+          questions: [
+            {
+              pointVal: 100,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 200,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 300,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 400,
+              question: 'What is the meaning of life?'
+            },
+            {
+              pointVal: 500,
+              question: 'What is the meaning of life?'
+            }
+          ]
+        }
+      ],
+      doubleJeopardy: false,
     }
   }
 
@@ -15,66 +166,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <div id="board">
-        <div className="category">
-          <div className="categoryName">Category 1</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
-        <div className="category">
-          <div className="categoryName">Category 2</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
-        <div className="category">
-          <div className="categoryName">Category 3</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
-        <div className="category">
-          <div className="categoryName">Category 4</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
-        <div className="category">
-          <div className="categoryName">Category 5</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
-        <div className="category">
-          <div className="categoryName">Category 6</div>
-          <div className="categoryQuestions">
-            <div className="question">100</div>
-            <div className="question">200</div>
-            <div className="question">300</div>
-            <div className="question">400</div>
-            <div className="question">500</div>
-          </div>
-        </div>
+        {this.state.board.map(category => <Categories key={category.name} name={category.name} questions={category.questions} />)}
       </div>
     );
   }

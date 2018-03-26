@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class Sidebar extends React.Component {
+export default class Questions extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -9,10 +9,9 @@ export default class Sidebar extends React.Component {
 
   render() {
     return (
-        <tr>
-        {console.log(this.props.num)}
-        {this.props.num.map(value => <td>{value}</td>)}
-        </tr>
+      <div className="categoryQuestions">
+        {this.props.questions.map(question => <div className="question">{question.pointVal}</div> )}
+      </div>
     );
   }
 }
