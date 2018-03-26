@@ -8,9 +8,10 @@ export default class Questions extends React.Component {
 
 
   render() {
+    console.log(this.props.questions[0].question)
     return (
       <div className="categoryQuestions">
-        {this.props.questions.map(question => <div className="question">{question.pointVal}</div> )}
+        {this.props.questions.map(question => <div className="question" value={question.question} key={question.id}>{question.pointVal}</div> )}
       </div>
     );
   }

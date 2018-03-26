@@ -6,7 +6,7 @@ import Main from './Main'
 
 
 
-var socket = io();
+export const socket = io();
 
 
 socket.on('connect', function () {
@@ -21,10 +21,3 @@ console.log('Hello React');
 ReactDOM.render(<Main />, document.getElementById('app'))
 
 
-let questions = document.getElementsByClassName('question');
-Array.prototype.forEach.call(questions, (question) => {
-  question.onclick = () => {
-    console.log(question);
-    socket.emit('questionClicked', question.innerHTML);
-  }
-});

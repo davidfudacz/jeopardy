@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
 import Board from './Board';
+import {socket} from './index.js';
 
 
 const toJson = response => response.data;
@@ -35,15 +36,16 @@ export default class Main extends React.Component {
 
   }
 
-  // componentDidMount() {
-  //   // axios.get('api/albums/')
-  //   //   .then(toJson)
-  //   //   .then(result => {
-  //   //     console.log(result)
-  //   //     this.setState({ albums: result })
-  //   //   })
-  //   //   .catch(logError);
-  // }
+  componentDidMount() {
+    const questions = document.getElementsByClassName('question');
+    Array.prototype.forEach.call(questions, (question) => {
+      question.onclick = () => {
+        console.log(question);
+
+        socket.emit('questionClicked', question.nodeValue, question.innerHTML);
+      }
+    });
+  }
 
   render() {
     return (
