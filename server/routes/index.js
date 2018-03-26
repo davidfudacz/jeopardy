@@ -7,6 +7,9 @@ const path = require('path');
 router.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
+router.get('/board', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../client/board.html'));
+});
 router.get('/api', require('./apiRoutes'));
 
 

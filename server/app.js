@@ -31,6 +31,7 @@ io.on('connection', function (socket) {
     console.log(socket.id);
 
     socket.on('questionClicked', (question) => {
+      io.emit('displayQuestion',question);
       console.log('Points:',question.pointVal);
       console.log('Question:',question.question);
     });
@@ -40,6 +41,7 @@ io.on('connection', function (socket) {
         console.log(":(", socket.id);
     })
 });
+
 
 
 

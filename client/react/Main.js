@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
 import Board from './Board';
+import Question from './Question';
 import {socket} from './index.js';
 
 
@@ -22,27 +23,32 @@ export default class Main extends React.Component {
             {
               id: 1,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 2,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 3,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 4,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 5,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         },
@@ -53,27 +59,32 @@ export default class Main extends React.Component {
             {
               id: 6,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 7,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 8,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 9,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 10,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         },
@@ -84,27 +95,32 @@ export default class Main extends React.Component {
             {
               id: 11,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 12,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 13,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 14,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 15,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         },
@@ -115,27 +131,32 @@ export default class Main extends React.Component {
             {
               id: 16,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 17,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 18,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 19,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 20,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         },
@@ -146,27 +167,32 @@ export default class Main extends React.Component {
             {
               id: 21,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 22,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 23,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 24,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 25,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         },
@@ -177,34 +203,40 @@ export default class Main extends React.Component {
             {
               id: 26,
               pointVal: 100,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 27,
               pointVal: 200,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 28,
               pointVal: 300,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 29,
               pointVal: 400,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             },
             {
               id: 30,
               pointVal: 500,
-              question: 'What is the meaning of life?'
+              question: 'What is the meaning of life?',
+              asked: false,
             }
           ]
         }
       ],
       currentQuestion: {},
+      questionActive: false,
     }
-    this.findQuestion = this.findQuestion.bind(this);\
+    this.findQuestion = this.findQuestion.bind(this);
   }
 
   reset() {
@@ -222,15 +254,23 @@ export default class Main extends React.Component {
     return 'Question not found!';
   }
 
-  questionClicked () {
-    
+  questionClicked (id,) {
+    let question = this.findQuestion(id);
+    this.setState({currentQuestion: question, questionActive: true})
+    return question;
+
+  }
+
+  questionAnswered () {
+    this.state.currentQuestion.setState({asked:true});
+    this.setState({questionActive: false})
   }
 
   componentDidMount() {
     const questions = document.getElementsByClassName('question');
     Array.prototype.forEach.call(questions, (question) => {
       question.onclick = () => {
-        socket.emit('questionClicked', this.findQuestion(+question.dataset.id));
+        socket.emit('questionClicked', this.questionClicked(+question.dataset.id));
       }
     });
   }
@@ -239,7 +279,10 @@ export default class Main extends React.Component {
     return (
       <div id="main">
         <Sidebar />
-        <Board board={this.state.board}/>
+        {this.state.questionActive 
+        ? <Question question={this.state.currentQuestion} />
+        : <Board board={this.state.board} />
+        }
       </div>
     )
   }
