@@ -86,7 +86,7 @@ module.exports = () => {
   },{
     firstName: 'Roman',
     lastName: 'Zalov',
-  }])
+  }],{returning:true})
 
   const fellows = User.bulkCreate([{
     firstName: 'Ben',
@@ -106,7 +106,7 @@ module.exports = () => {
   },{
     firstName: 'Patrick',
     lastName: 'Gund',
-  }])
+  }],{returning:true})
 
   const instructors = User.bulkCreate([{
     firstName: 'Ben',
@@ -117,17 +117,19 @@ module.exports = () => {
   },{
     firstName: 'Finn',
     lastName: 'Terdal',
-  }])
+  }],{returning:true})
 
   const cohort = Cohort.create({
     name: '1802-FSA-CH'
-  })
+  },{returning:true})
 
   Promise.all([students,fellows,instructors,cohort])
     .then(([students, fellows, instructors, cohort]) => {
-      students.forEach(student => student.addCohort(cohort,{type: "Student"}))
-      // fellows.forEach(fellow => fellow.addCohort(cohort,{type: "Fellow"}))
-      // instructors.forEach(instructor => instructor.addCohort(cohort,{type: "Instructor"}))
+      // User.findById(1).then((result) => {console.log(result)})
+      // students[0].addCohort(cohort, { type: "Student" });
+      students.addCohorts(cohort, { userType: 'Student' });
+      // fellows.forEach(fellow => fellow.addCohort(cohort, { userType: 'Fellow' }))
+      // instructors.forEach(instructor => instructor.addCohort(cohort, { userType: 'Instructor' }))
 
       console.log('Inital Users created successfully!')
     })

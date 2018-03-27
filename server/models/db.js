@@ -1,3 +1,5 @@
 'use strict'
 const Sequelize = require('sequelize');
-module.exports = new Sequelize('postgres://localhost:5432/jeopardy');
+const db = new Sequelize('postgres://localhost:5432/jeopardy');
+
+module.exports = db;

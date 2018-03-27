@@ -2,16 +2,10 @@
 const Sequelize = require('sequelize');
 const db = require('./db');
 
-const UserCohort = db.define('userCohort', {
-  userId: {
-    type: Sequelize.INTEGER
-  },
-  cohortId: {
-    type: Sequelize.INTEGER
-  },
-  type: {
+const UserCohort = db.define('userCohorts', {
+  userType: {
     type: Sequelize.ENUM('Student','Fellow','Instructor')
-  },
+  }
 })
 
 module.exports = UserCohort;
