@@ -9,8 +9,8 @@ const Cohort = require('./cohort');
 const UserCohort = require('./userCohort');
 
 Question.belongsTo(Category);
-Cohort.belongsToMany(User, {through: 'UserCohort'});
-User.belongsToMany(Cohort, {through: 'UserCohort'});
+Cohort.belongsToMany(User, {through: 'userCohorts'});
+User.belongsToMany(Cohort, {through: 'userCohorts'});
 
 module.exports = {
   User,

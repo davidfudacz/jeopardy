@@ -5,12 +5,14 @@ const app = express();
 const socketio = require('socket.io');
 const { db } = require('./models');
 const Sequelize = require('sequelize');
+const seedFile = require('./seed');
 
 
 // app.listen() returns an http.Server object
 // http://expressjs.com/en/4x/api.html#app.listen
 
 db.sync({ force: true })
+  .then(()=> seedFile())
   .then(function () {
     console.log('All tables created!');
   })
