@@ -5,9 +5,11 @@ const questions = require('./questions');
 
 
 
-console.log('in api routes index');
-router.get('/users', users);
-router.get('/questions', questions);
+router.get('/', (req, res, next) => {
+  res.sendStatus(200);
+})
+router.use('/users', users);
+router.use('/questions', questions);
 
 
 module.exports = router;
