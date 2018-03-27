@@ -1,7 +1,8 @@
 'use strict'
 const Sequelize = require('sequelize');
-const { db, User, Cohort } = require('./models');
+const { db, User, Cohort, Question, Category } = require('./models');
 
+const boundConsole = console.error.bind(console);
 
 module.exports = () => {
 
@@ -125,13 +126,54 @@ module.exports = () => {
 
   Promise.all([students,fellows,instructors,cohort])
     .then(([students, fellows, instructors, cohort]) => {
-      // User.findById(1).then((result) => {console.log(result)})
-      // students[0].addCohort(cohort, { type: "Student" });
-      students.addCohorts(cohort, { userType: 'Student' });
-      // fellows.forEach(fellow => fellow.addCohort(cohort, { userType: 'Fellow' }))
-      // instructors.forEach(instructor => instructor.addCohort(cohort, { userType: 'Instructor' }))
+      students.forEach(student => {student.addCohort(cohort, {through : { userType: 'Student' }})});
+      fellows.forEach(fellow => {fellow.addCohort(cohort, {through : { userType: 'Fellow' }})});
+      instructors.forEach(instructor => {instructor.addCohort(cohort, {through : { userType: 'Instructor' }})});
 
       console.log('Inital Users created successfully!')
     })
-    .catch(console.error.bind(console));
+    .catch(boundConsole);
+
+
+
+  const makeQuestions = () => {
+    let questionArr = [];
+    for (let i = 0; i < 6; i++) {
+      let iStr = i.toString();
+      for (let j = 0; j < 5; j++) {
+        let jStr = j.toString();
+        questionArr.push({
+          question: `this is question #${iStr}${jStr}`,
+          initialDifficulty: j,
+        })
+      }
+    }
+    return questionArr;
+  }
+
+  const makeCategories = () => {
+    let categoryArr = [];
+    for (let i = 0; i < 6; i++) {
+      let iStr = i.toString();
+      categoryArr.push({
+        name: `Category ${iStr}`,
+      })
+    }
+    return categoryArr;
+  }
+  const questionPromise = Question.bulkCreate(makeQuestions(), {returning: true})
+  const categoryPromise = Category.bulkCreate(makeCategories(), {returning: true})
+
+  Promise.all([questionPromise, categoryPromise])
+  .then(([questions, categories]) => {
+    let count = 0;
+    for (let i = 0; i < questions.length; i++) {
+      if (i>0 && !(i % 5)) count++
+      let currentCategory = categories[count];
+      let currentQuestion = questions[i];
+      currentQuestion.setCategory(currentCategory);
+    }
+  })
+  .catch(boundConsole);
+
 }

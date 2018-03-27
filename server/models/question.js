@@ -5,18 +5,22 @@ const db = require('./db');
 const Question = db.define('question', {
   question: {
     type: Sequelize.TEXT,
+    allowNull: false,
   },
 
   guessedRight: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 
   guessedWrong: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 
   initialDifficulty: {
     type: Sequelize.INTEGER,
+    allowNull: false,
     validate: {
       min: 0,
       max: 4,
@@ -24,7 +28,8 @@ const Question = db.define('question', {
   },
 
   cohortWeek: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 
   totalGuesses: {
