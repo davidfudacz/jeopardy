@@ -1,17 +1,13 @@
 import React from 'react';
 
 
-export default class Questions extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Question = (props) => {
 
-
-  render() {
     return (
-      <div id="bigQuestion">
-        {this.props.question.question}
+      <div onClick={props.questionAnswered} id="bigQuestion">
+        {props.question.question}
       </div>
     );
-  }
 }
+
+export default Question;

@@ -4,10 +4,9 @@ import Categories from './Categories';
 
 const Board = (props) => {
 
-  console.log(props.board);
     return (
       <div id="board">
-        {props.board.map(category => <Categories key={category.id * 1000} name={category.name} questions={category.questions} />)}
+        {props.board.map((category, index) => <Categories category={index} questionClicked={props.questionClicked} key={category.id * 1000} name={category.name} questions={category.questions} />)}
       </div>
     );
 }

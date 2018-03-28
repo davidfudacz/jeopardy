@@ -14,10 +14,6 @@ socket.on('connect', function () {
 
 });
 
-
-console.log('Hello React');
-
-
 ReactDOM.render(<Main />, document.getElementById('app'))
 
 

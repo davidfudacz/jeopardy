@@ -23,6 +23,7 @@ export default class Main extends React.Component {
     }
     this.findQuestion = this.findQuestion.bind(this);
     this.questionClicked = this.questionClicked.bind(this);
+    this.questionAnswered = this.questionAnswered.bind(this);
   }
 
 
@@ -32,33 +33,28 @@ export default class Main extends React.Component {
       let curCategoryQuestions = categories[i].questions;
       for (let j = 0; j < curCategoryQuestions.length; j++) {
         let curQuestion = curCategoryQuestions[j];
-        if (+curQuestion.id === id) return curQuestion;
+        if (+curQuestion.id === +id) return curQuestion;
       }
     }
-    return 'Question not found!';
+    return 'Not found!';
   }
 
-  questionClicked (id) {
-    socket.emit('questionClicked', this.questionClicked(+question.dataset.id))
-
-
-
-
-
-
-    let question = this.findQuestion(id);
+  questionClicked (event) {
+    console.log(event.target.dataset.question)
+    console.log(event.target.dataset.category)
+    const questionId = event.target.dataset.id;
+    const question = this.findQuestion(questionId);
     this.setState({currentQuestion: question, questionActive: true})
-    return question;
 
+    // socket.emit('questionClicked', question)
   }
 
-  questionAnswered () {
-    this.state.currentQuestion.setState({asked:true});
-    this.setState({questionActive: false})
+  questionAnswered (event) {
+
+    this.setState({ questionActive: false, currentQuestion: {} })
   }
 
   componentDidMount() {
-    console.log('component mounted')
     axios.get('/api/questions/buildBoard/' + this.state.categoryNumber)
     .then(res => res.data)
     .then(board => this.setState({board: board}))
@@ -66,11 +62,12 @@ export default class Main extends React.Component {
   }
 
   render() {
+    console.log(this.state.board);
     return (
       <div id="main">
         <Sidebar />
         {this.state.questionActive 
-        ? <Question question={this.state.currentQuestion} />
+        ? <Question questionAnswered={this.questionAnswered} question={this.state.currentQuestion} />
         : <Board questionClicked={this.questionClicked} board={this.state.board} />
         }
       </div>
