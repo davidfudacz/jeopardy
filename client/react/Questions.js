@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-const Questions = () => {
+const Questions = (props) => {
     return (
       <div className="categoryQuestions">
-        {this.props.questions.map(question => <div className="question" data-id={question.id} onClick={props.questionClicked} key={question.id}>{question.pointVal}</div> )}
+        {props.questions.map(question => <div className="question" data-id={question.id} onClick={props.questionClicked} key={question.id}>{question.pointVal}</div> )}
       </div>
     );
 

@@ -177,3 +177,15 @@ module.exports = () => {
   .catch(boundConsole);
 
 }
+
+
+
+Question.findById(1)
+.then(question => {
+  console.log(question.pointValue)
+})
+
+User.findById(1)
+.then(user => {
+  console.log(user.lastFirst)
+})

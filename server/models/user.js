@@ -19,7 +19,7 @@ const User = db.define('user', {
   },
   firstLast: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get: function() {
       let first = this.getDataValue('firstName');
       let last = this.getDataValue('lastName');
       return `${first} ${last}`;
@@ -27,7 +27,7 @@ const User = db.define('user', {
   },
   lastFirst: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get: function() {
       let first = this.getDataValue('firstName');
       let last = this.getDataValue('lastName');
       return `${last}, ${first}`;

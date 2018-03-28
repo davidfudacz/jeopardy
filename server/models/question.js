@@ -35,18 +35,20 @@ const Question = db.define('question', {
 
   totalGuesses: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get: function () {
       let right = this.getDataValue('guessedRight');
       let wrong = this.getDataValue('guessedWrong');
+
       return right + wrong;
     }
   },
 
   pointValue: {
     type: Sequelize.VIRTUAL,
-    get() {
+    get: function () {
+      let right = this.getDataValue('guessedRight');
       let wrong = this.getDataValue('guessedWrong');
-      let total = this.getDataValue('totalGuesses');
+      let total = right + wrong;
       let initialDifficulty = this.getDataValue('initialDifficulty');
       if ((total) < 10) return (initialDifficulty + 1) * 100;
       return Math.ceil((wrong / (total)) * 4) * 100;
