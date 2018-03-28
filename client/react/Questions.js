@@ -1,17 +1,13 @@
 import React from 'react';
 
 
-export default class Questions extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
-  render() {
+const Questions = () => {
     return (
       <div className="categoryQuestions">
-        {this.props.questions.map(question => <div className="question" data-id={question.id} key={question.id}>{question.pointVal}</div> )}
+        {this.props.questions.map(question => <div className="question" data-id={question.id} onClick={props.questionClicked} key={question.id}>{question.pointVal}</div> )}
       </div>
     );
-  }
+
 }
+
+export default Questions;
