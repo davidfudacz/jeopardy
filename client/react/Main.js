@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import Board from './Board';
 import Question from './Question';
 import { socket } from './index.js';
+import store, { boardBuilt, buildBoard, questionClicked } from '../store';
 
 
 const toJson = response => response.data;
@@ -15,38 +16,9 @@ const logError = console.error.bind(console);
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      board: [],
-      currentQuestion: {},
-      currentQuestionLocation: [],
-      questionActive: false,
-      categoryNumber: 6,
-      score: {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0
-      },
-      teams: [
-        {
-          id: 1,
-          name: 'Kevins Team'
-        },
-        {
-          id: 2,
-          name: 'Erikas Team'
-        },
-        {
-          id: 3,
-          name: 'Ellens Team'
-        },
-        {
-          id: 4,
-          name: 'Bens Team'
-        }
-      ],
+    this.state = store.getState();
 
-    }
+
     this.findQuestion = this.findQuestion.bind(this);
     this.questionClicked = this.questionClicked.bind(this);
     this.questionAnswered = this.questionAnswered.bind(this);
@@ -99,16 +71,14 @@ export default class Main extends React.Component {
 
   questionClicked (event) {
     if (event.target.dataset.asked === 'true') return;
+
     const questionId = event.target.dataset.id;
     const question = this.findQuestion(questionId);
-    this.setState({
-      currentQuestion: question, 
-      questionActive: true, 
-      currentQuestionLocation: [
-        event.target.dataset.category, 
-        event.target.dataset.question
-      ]
-    })
+
+    const questionIndex = event.target.dataset.question;
+    const categoryIndex = event.target.dataset.category;
+
+    store.dispatch(questionClicked(question, categoryIndex, questionIndex))
 
     // socket.emit('questionClicked', question)
   }
@@ -122,19 +92,25 @@ export default class Main extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/questions/buildBoard/' + this.state.categoryNumber)
-    .then(res => res.data)
-    .then(board => this.setState({board: board}))
-    .catch(console.error.bind(console));
+    this.unsubscribeFromStore = store.subscribe(() => {
+      this.setState(store.getState());
+    })
+
+    store.dispatch(buildBoard(6));
+
+  }
+
+  componentWillUnmount () {
+    this.unsubscribeFromStore();
   }
 
   render() {
     return (
       <div id="main">
-        <Sidebar teams={this.state.teams} score={this.state.score} />
+        <Sidebar />
         {this.state.questionActive 
         ? <Question questionAnswered={this.questionAnswered} question={this.state.currentQuestion} />
-        : <Board questionClicked={this.questionClicked} board={this.state.board} />
+        : <Board questionClicked={this.questionClicked} />
         }
       </div>
     )

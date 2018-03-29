@@ -1,13 +1,29 @@
 import React from 'react';
+import store from '../store';
 
 
-const Question = (props) => {
+export default class Question extends React.Component {
+  constructor() {
+    super();
+    this.state = store.getState();
+  }
 
+  componentDidMount() {
+    this.unsubscribeFromStore = store.subscribe(() => {
+      this.setState(store.getState());
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromStore();
+  }
+
+  render() {
     return (
-      <div onClick={props.questionAnswered} data-points={props.question.pointVal} id="bigQuestion">
-        {props.question.question.toUpperCase()}
+      <div onClick={this.state.questionAnswered} data-points={this.state.question.pointVal} id="bigQuestion">
+        {this.state.question.question.toUpperCase()}
       </div>
     );
-}
 
-export default Question;
+  }
+}
