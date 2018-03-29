@@ -21,27 +21,67 @@ export default class Main extends React.Component {
       currentQuestionLocation: [],
       questionActive: false,
       categoryNumber: 6,
-      score: [],
+      score: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0
+      },
+      teams: [
+        {
+          id: 1,
+          name: 'Kevins Team'
+        },
+        {
+          id: 2,
+          name: 'Erikas Team'
+        },
+        {
+          id: 3,
+          name: 'Ellens Team'
+        },
+        {
+          id: 4,
+          name: 'Bens Team'
+        }
+      ],
 
     }
     this.findQuestion = this.findQuestion.bind(this);
     this.questionClicked = this.questionClicked.bind(this);
     this.questionAnswered = this.questionAnswered.bind(this);
     this.toggleQuestionAsked = this.toggleQuestionAsked.bind(this);
+    this.changeScore = this.changeScore.bind(this);
   }
 
   toggleQuestionAsked ([categoryIndex, questionIndex]) {
     let board = this.state.board.slice();
-    board.map((category,index) => {
+    board.map((category, index) => {
       if (index !== +categoryIndex) return category;
-      category.questions.map((question,index) => {
-        if (index !== +questionIndex) return question;
-        console.log('i hit');
+      category.questions.map((question, qIndex) => {
+        if (qIndex !== +questionIndex) return question;
         question.asked = !question.asked;
         return question;
       })
     })
     this.setState({ board })
+  }
+
+
+  changeScore (rightOrWrong, teamId, value) {
+    let score = {...this.state.score}
+    let pointValue = +value;
+    switch (rightOrWrong) {
+      case 'CORRECT':
+        this.setState({ score: {...score, [teamId]: (this.state.score[teamId] + pointValue)}})
+        break;
+      case 'INCORRECT':
+        this.setState({ score: {...score, [teamId]: (this.state.score[teamId] - pointValue)}})
+        break;
+      default:
+        return;
+    }
+
   }
 
 
@@ -74,10 +114,13 @@ export default class Main extends React.Component {
   }
 
   questionAnswered (event) {
+    const pointValue = event.target.dataset.points;
 
     this.toggleQuestionAsked(this.state.currentQuestionLocation)
     this.setState({ questionActive: false, currentQuestion: {} })
-    console.log(this.state.board);
+
+    this.changeScore('INCORRECT', 1, pointValue)
+
   }
 
   componentDidMount() {
@@ -90,7 +133,7 @@ export default class Main extends React.Component {
   render() {
     return (
       <div id="main">
-        <Sidebar />
+        <Sidebar teams={this.state.teams} score={this.state.score} />
         {this.state.questionActive 
         ? <Question questionAnswered={this.questionAnswered} question={this.state.currentQuestion} />
         : <Board questionClicked={this.questionClicked} board={this.state.board} />

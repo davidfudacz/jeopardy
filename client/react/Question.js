@@ -4,8 +4,8 @@ import React from 'react';
 const Question = (props) => {
 
     return (
-      <div onClick={props.questionAnswered} id="bigQuestion">
-        {props.question.question}
+      <div onClick={props.questionAnswered} data-points={props.question.pointVal} id="bigQuestion">
+        {props.question.question.toUpperCase()}
       </div>
     );
 }
