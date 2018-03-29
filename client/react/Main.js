@@ -18,12 +18,30 @@ export default class Main extends React.Component {
     this.state = {
       board: [],
       currentQuestion: {},
+      currentQuestionLocation: [],
       questionActive: false,
       categoryNumber: 6,
+      score: [],
+
     }
     this.findQuestion = this.findQuestion.bind(this);
     this.questionClicked = this.questionClicked.bind(this);
     this.questionAnswered = this.questionAnswered.bind(this);
+    this.toggleQuestionAsked = this.toggleQuestionAsked.bind(this);
+  }
+
+  toggleQuestionAsked ([categoryIndex, questionIndex]) {
+    let board = this.state.board.slice();
+    board.map((category,index) => {
+      if (index !== +categoryIndex) return category;
+      category.questions.map((question,index) => {
+        if (index !== +questionIndex) return question;
+        console.log('i hit');
+        question.asked = !question.asked;
+        return question;
+      })
+    })
+    this.setState({ board })
   }
 
 
@@ -40,18 +58,26 @@ export default class Main extends React.Component {
   }
 
   questionClicked (event) {
-    console.log(event.target.dataset.question)
-    console.log(event.target.dataset.category)
+    if (event.target.dataset.asked === 'true') return;
     const questionId = event.target.dataset.id;
     const question = this.findQuestion(questionId);
-    this.setState({currentQuestion: question, questionActive: true})
+    this.setState({
+      currentQuestion: question, 
+      questionActive: true, 
+      currentQuestionLocation: [
+        event.target.dataset.category, 
+        event.target.dataset.question
+      ]
+    })
 
     // socket.emit('questionClicked', question)
   }
 
   questionAnswered (event) {
 
+    this.toggleQuestionAsked(this.state.currentQuestionLocation)
     this.setState({ questionActive: false, currentQuestion: {} })
+    console.log(this.state.board);
   }
 
   componentDidMount() {
@@ -62,7 +88,6 @@ export default class Main extends React.Component {
   }
 
   render() {
-    console.log(this.state.board);
     return (
       <div id="main">
         <Sidebar />
