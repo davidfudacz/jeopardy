@@ -3,7 +3,7 @@ import axios from 'axios';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Question from './Question';
-import {socket} from './index.js';
+import { socket } from './index.js';
 
 
 const toJson = response => response.data;
@@ -118,8 +118,6 @@ export default class Main extends React.Component {
 
     this.toggleQuestionAsked(this.state.currentQuestionLocation)
     this.setState({ questionActive: false, currentQuestion: {} })
-
-    this.changeScore('INCORRECT', 1, pointValue)
 
   }
 
