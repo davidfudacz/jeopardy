@@ -29,8 +29,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     questionClicked: (event) => {
-
-      console.log('inside question div',event.target.dataset)
       //set a team - this will be removed when buzzing in functionality is enabled
       const activeTeamId = 1;
 

@@ -10,13 +10,16 @@ router.get('/', function (req, res) {
     .catch(console.error.bind(console));
 });
 
+//   /api/questions/
 router.get('/:questionId', function (req, res) {
-  Question.findById(req.params.questionId)  
+  Question.findById(req.params.questionId) 
   .then((question) => {
       res.json(question);
     })
     .catch(console.error.bind(console));
 });
+
+
 
 router.get('/buildBoard/:categoryCount', async function (req, res) {
 
@@ -65,50 +68,21 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
   } catch (err) {
     console.log(err);
   }
-  
 
+})
 
+router.put('guessed/right/:questionId', (req, res, next) => {
+  Question.findById(questionId)
+  .then(question => question.increment('guessedRight'))
+  .then(result => res.json(result))
+  .catch(console.error.bind(console));
+})
 
-  // const sendBoard = async () => {
-  //   try {
-  //     //grab all categories
-  //     const board = [];
-  //     const categories = await Category.findAll()
-
-
-  //     categories.forEach(async category => {
-  //       const questions = await Question.findAll({
-  //         where: {
-  //           categoryId: category.id
-          // },
-          // order: [
-          //   ['initialDifficulty', 'ASC']
-          // ]
-  //       })
-
-  //       const questionArr = questions.map( question => ({
-  //         id: question.id,
-  //         pointVal: question.pointValue,
-  //         question: question.question,
-  //         asked: false,
-  //       }));
-  //       board.push({
-  //         name: category.name,
-  //         id: category.id,
-  //         questions: questionArr
-  //       })
-
-  //     })
-  //     return board;
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-
-  // }
-
-  // console.log(sendBoard())
-  // // res.json(sendBoard());
-
+router.put('guessed/wrong/:questionId', (req, res, next) => {
+  Question.findById(questionId)
+  .then(question => question.increment('guessedWrong'))
+  .then(result => res.json(result))
+  .catch(console.error.bind(console));
 })
 
 

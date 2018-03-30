@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 function Question (props) {
   console.log('current question', props.currentQuestion)
   return (
-    <div onClick={props.questionAnsweredCorrectly} data-points={props.currentQuestion.pointVal} id="bigQuestion">
+    <div onClick={props.questionAnsweredCorrectly} data-points={props.currentQuestion.pointValue} id="bigQuestion">
       {props.currentQuestion.question.toUpperCase()}
     </div>
   );
@@ -22,7 +22,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch, ownProps) {
   return {
     questionAnsweredCorrectly: (event) => {
-    const pointValue = ownProps.currentQuestion.pointValue;
+      dispatch(correctQuestionThunkerator(1))
+    // const pointValue = ownProps.currentQuestion.pointValue;
     // console.log('pointvalue',pointValue)
     
     }

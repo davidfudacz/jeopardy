@@ -79,6 +79,15 @@ function reducer(prevState = initialState, action) {
         activeTeamId: action.activeTeamId
       }
 
+    case INCREMENT_SCORE:
+      const activeTeamId = prevState.activeTeamId;
+      const pointVal = prevState.currentQuestion.pointVal;
+      const score = prevState.score;
+      const newScore = {...score, [activeTeamId]: score[activeTeamId]++ }
+      return {...prevState,
+        activeTeamId: action.activeTeamId
+      }
+
     default: return prevState;
   }
 }
@@ -123,11 +132,9 @@ export function changeActiveTeam (activeTeamId) {
   }
 }
 
-export function incrementScore (activeTeamId, pointVal) {
+export function incrementScore () {
   return {
-    type: INCREMENT_SCORE,
-    activeTeamId,
-    pointVal
+    type: INCREMENT_SCORE
   }
 }
 
@@ -167,7 +174,18 @@ export function incorrectQuestionThunkerator(question) {
 }
 
 
-export function correctQuestionThunkerator(question) {
+export function correctQuestionThunkerator(questionId) {
+  return function thunk(dispatch) {
+    axios.put(`/api/questions/guessed/right/${questionId}`)
+    .then(res => res.data)
+    .then(result => {
+      dispatch(incrementScore());
+      console.log(result)
+    })
+    
+
+
+  }
 
 }
 
