@@ -10,6 +10,14 @@ router.get('/', function (req, res) {
     .catch(console.error.bind(console));
 });
 
+router.get('/:questionId', function (req, res) {
+  Question.findById(req.params.questionId)  
+  .then((question) => {
+      res.json(question);
+    })
+    .catch(console.error.bind(console));
+});
+
 router.get('/buildBoard/:categoryCount', async function (req, res) {
 
 

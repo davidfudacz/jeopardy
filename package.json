@@ -23,6 +23,7 @@
     "pg-native": "^1.10.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "reactdom": "^2.0.0",
     "redux": "^3.7.2",

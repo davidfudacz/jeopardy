@@ -3,7 +3,7 @@
 module.exports = {
   entry: [
     'babel-polyfill',
-    './client/react/index.js'
+    './client/index.js'
   ],
   output: {
     filename: './public/bundle.js',
