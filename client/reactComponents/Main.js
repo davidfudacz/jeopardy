@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Question from './Question';
 import { socket } from './index.js';
-import store, { boardBuilt, buildBoardThunkerator, questionClicked } from '../store';
+import store, { buildBoardThunkerator } from '../store';
 
 
 const toJson = response => response.data;

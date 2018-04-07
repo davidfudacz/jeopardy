@@ -3,33 +3,29 @@ import loggerMiddleware from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
 import socket from './socket';
+import rootReducer from './reducers';
+
 
 const middleWareFuncs = applyMiddleware(loggerMiddleware, thunkMiddleware);
 
+export * from './store/board';
+export * from './store/activeTeam';
+export * from './store/questionActive';
+export * from './store/score';
+
+
+
 //actions
-const BOARD_BUILT = 'BOARD_BUILT';
 const QUESTION_CLICKED = 'QUESTION_CLICKED';
 const QUESTION_ANSWERED_CORRECTLY = 'QUESTION_ANSWERED_CORRECTLY';
 const QUESTION_ANSWERED_INCORRECTLY = 'QUESTION_ANSWERED_INCORRECTLY';
-const CHANGE_ACTIVE_TEAM = 'CHANGE_ACTIVE_TEAM';
-const INCREMENT_SCORE = 'INCREMENT_SCORE';
-const DECREMENT_SCORE = 'DECREMENT_SCORE';
 
 
 
 const initialState = {
-  board: [],
   currentQuestion: {},
-  activeTeamId: 0,
   queueOfTeamsToAnswer: [],
   currentQuestionLocation: [],
-  questionActive: false,
-  score: {
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0
-  },
   teams: [
     {
       id: 1,
@@ -54,8 +50,6 @@ const initialState = {
 //reducer
 function reducer(prevState = initialState, action) {
   switch (action.type) {
-    case BOARD_BUILT:
-      return {...prevState, board: action.board }
 
     case QUESTION_CLICKED:
       return {...prevState,
@@ -74,16 +68,11 @@ function reducer(prevState = initialState, action) {
         
       })
 
-    case CHANGE_ACTIVE_TEAM:
-      return {...prevState,
-        activeTeamId: action.activeTeamId
-      }
-
     case INCREMENT_SCORE:
       const activeTeamId = prevState.activeTeamId;
-      const pointVal = prevState.currentQuestion.pointVal;
+      const pointVal = +prevState.currentQuestion.pointVal;
       const score = prevState.score;
-      const newScore = {...score, [activeTeamId]: score[activeTeamId]++ }
+      const newScore = {...score, [activeTeamId]: (+score[activeTeamId] + pointVal) }
       return {...prevState,
         activeTeamId: action.activeTeamId
       }
@@ -96,13 +85,6 @@ function reducer(prevState = initialState, action) {
 
 
 //action creators
-export function boardBuilt (board) {
-  return {
-    type: BOARD_BUILT,
-    board
-  }
-}
-
 export function questionClicked (question, categoryId, questionId) {
   return {
     type: QUESTION_CLICKED,
@@ -125,39 +107,9 @@ export function questionAnsweredIncorrectly (question) {
   }
 }
 
-export function changeActiveTeam (activeTeamId) {
-  return {
-    type: CHANGE_ACTIVE_TEAM,
-    activeTeamId
-  }
-}
-
-export function incrementScore () {
-  return {
-    type: INCREMENT_SCORE
-  }
-}
-
-export function decrementScore (activeTeamId, pointVal) {
-  return {
-    type: DECREMENT_SCORE,
-    activeTeamId,
-    pointVal
-  }
-}
-
 
 
 //THUNKS
-export function buildBoardThunkerator(categoryNum) {
-  return function thunk(dispatch) {
-    return axios.get('/api/questions/buildBoard/' + categoryNum)
-    .then(res => res.data)
-    .then(board => dispatch(boardBuilt(board)))
-    .catch(console.error.bind(console));
-
-  }
-}
 
 export function questionClickedThunkerator(questionId, categoryIndex, questionIndex) {
   return function thunk(dispatch) {
@@ -182,6 +134,7 @@ export function correctQuestionThunkerator(questionId) {
       dispatch(incrementScore());
       console.log(result)
     })
+    .catch(console.error.bind(console));
     
 
 
@@ -189,5 +142,5 @@ export function correctQuestionThunkerator(questionId) {
 
 }
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
 export default store;

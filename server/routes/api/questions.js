@@ -71,15 +71,16 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
 
 })
 
-router.put('guessed/right/:questionId', (req, res, next) => {
-  Question.findById(questionId)
+router.put('/guessed/correctly/:questionId', (req, res, next) => {
+
+  Question.findById(req.params.questionId)
   .then(question => question.increment('guessedRight'))
   .then(result => res.json(result))
   .catch(console.error.bind(console));
 })
 
-router.put('guessed/wrong/:questionId', (req, res, next) => {
-  Question.findById(questionId)
+router.put('/guessed/incorrectly/:questionId', (req, res, next) => {
+  Question.findById(req.params.questionId)
   .then(question => question.increment('guessedWrong'))
   .then(result => res.json(result))
   .catch(console.error.bind(console));
