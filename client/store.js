@@ -12,13 +12,12 @@ export * from './store/board';
 export * from './store/activeTeam';
 export * from './store/questionActive';
 export * from './store/score';
+export * from './store/teams';
 
 
 
 //actions
 const QUESTION_CLICKED = 'QUESTION_CLICKED';
-const QUESTION_ANSWERED_CORRECTLY = 'QUESTION_ANSWERED_CORRECTLY';
-const QUESTION_ANSWERED_INCORRECTLY = 'QUESTION_ANSWERED_INCORRECTLY';
 
 
 
@@ -26,24 +25,6 @@ const initialState = {
   currentQuestion: {},
   queueOfTeamsToAnswer: [],
   currentQuestionLocation: [],
-  teams: [
-    {
-      id: 1,
-      name: 'Kevins Team'
-    },
-    {
-      id: 2,
-      name: 'Erikas Team'
-    },
-    {
-      id: 3,
-      name: 'Ellens Team'
-    },
-    {
-      id: 4,
-      name: 'Bens Team'
-    }
-  ],
 
 }
 
@@ -119,27 +100,6 @@ export function questionClickedThunkerator(questionId, categoryIndex, questionIn
     .catch(console.error.bind(console));
 
   }
-}
-
-export function incorrectQuestionThunkerator(question) {
-
-}
-
-
-export function correctQuestionThunkerator(questionId) {
-  return function thunk(dispatch) {
-    axios.put(`/api/questions/guessed/right/${questionId}`)
-    .then(res => res.data)
-    .then(result => {
-      dispatch(incrementScore());
-      console.log(result)
-    })
-    .catch(console.error.bind(console));
-    
-
-
-  }
-
 }
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
