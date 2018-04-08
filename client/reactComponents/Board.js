@@ -11,6 +11,7 @@ function Board (props) {
       props.board.length
       ? props.board.map((category, index) => {
         return (<Categories
+          board={props.board}
           category={index}
           key={category.id * 1000}
           name={category.name}

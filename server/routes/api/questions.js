@@ -43,6 +43,7 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
           pointVal: question.pointValue,
           question: question.question,
           asked: false,
+          answer: question.answer,
         }
       });
       //sort the array by point value
