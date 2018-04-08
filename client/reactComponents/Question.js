@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 function Question (props) {
   console.log('current question', props.currentQuestion)
   return (
-    <div onClick={props.questionAnsweredCorrectly} data-points={props.currentQuestion.pointValue} id="bigQuestion">
+    <div onClick={props.questionAnsweredCorrectly} data-points={props.currentQuestion.pointValue} className="bigQuestion">
       {props.currentQuestion.question.toUpperCase()}
     </div>
   );

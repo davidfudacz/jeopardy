@@ -144,6 +144,7 @@ module.exports = () => {
         let jStr = j.toString();
         questionArr.push({
           question: `this is question #${iStr}${jStr}`,
+          answer: `this is the answer to question #${iStr}${jStr}`,
           initialDifficulty: j,
         })
       }

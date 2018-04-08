@@ -9,6 +9,11 @@ const Question = db.define('question', {
     allowNull: false,
   },
 
+  answer: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+
   guessedRight: {
     type: Sequelize.INTEGER,
     defaultValue: 0,

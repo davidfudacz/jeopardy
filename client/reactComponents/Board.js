@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Categories from './Categories';
 import { connect } from 'react-redux';
@@ -5,7 +6,7 @@ import { connect } from 'react-redux';
 
 function Board (props) {
   return (
-    <div id="board">
+    <div className="board">
     {
       props.board.length
       ? props.board.map((category, index) => {
@@ -22,7 +23,7 @@ function Board (props) {
   );
 }
 
-const mapStateToProps = ({board}) => ({board});
+const mapStateToProps = ({board, questionActive}) => ({board, questionActive});
 
 const mapDispatchToProps = null;
 
