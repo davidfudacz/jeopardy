@@ -1,34 +1,9 @@
 import React from 'react';
-import store, { incorrectQuestionThunkerator, correctQuestionThunkerator } from '../store';
-import { connect } from 'react-redux';
 
-
-function Question (props) {
-  console.log('current question', props.currentQuestion)
+export default function Question (props) {
   return (
-    <div onClick={props.questionAnsweredCorrectly} data-points={props.currentQuestion.pointValue} className="bigQuestion">
+    <div className="bigQuestion">
       {props.currentQuestion.question.toUpperCase()}
     </div>
   );
-
 }
-function mapStateToProps (state) {
-  return {
-    activeTeam: state.activeTeam,
-    currentQuestion: state.currentQuestion,
-  }
-}
-
-function mapDispatchToProps (dispatch, ownProps) {
-  return {
-    questionAnsweredCorrectly: (event) => {
-      dispatch(correctQuestionThunkerator(1))
-    // const pointValue = ownProps.currentQuestion.pointValue;
-    // console.log('pointvalue',pointValue)
-    
-    }
-  }
-}
-
-const QuestionContainer = connect(mapStateToProps, mapDispatchToProps)(Question);
-export default QuestionContainer;

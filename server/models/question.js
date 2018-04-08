@@ -24,6 +24,11 @@ const Question = db.define('question', {
     defaultValue: 0,
   },
 
+  notAnswered: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+
   initialDifficulty: {
     type: Sequelize.INTEGER,
     allowNull: false,

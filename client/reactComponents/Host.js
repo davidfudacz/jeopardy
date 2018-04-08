@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import AnswerPanel from './AnswerPanel';
+import Question from './Question';
 import HostControlPanel from './HostControlPanel';
 
 function Host(props) {
@@ -10,7 +11,11 @@ function Host(props) {
     <div id="main">
       <Sidebar />
       <div className="boardWrapper">
-        <Board />
+      {
+        props.questionActive
+          ? <Question />
+          : <Board />
+      }
         <AnswerPanel />
       </div>
       <HostControlPanel />
@@ -18,7 +23,7 @@ function Host(props) {
   )
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = ({questionActive}) => ({questionActive});
 
 const mapDispatchToProps = null;
 
