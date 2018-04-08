@@ -56,7 +56,7 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
     }
   
   
-    const builtCategory = await buildCategory(1);
+    // const builtCategory = await buildCategory(1);
   
     for (let i = 0; i < categoryCount; i++) {
       let builtCategory = await buildCategory(i+1);

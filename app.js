@@ -7,6 +7,7 @@ const seedFile = require('./server/seed');
 const socketio = require('socket.io');
 
 
+
 // app.listen() returns an http.Server object
 // http://expressjs.com/en/4x/api.html#app.listen
 
@@ -29,6 +30,14 @@ io.on('connection', function (socket) {
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!');
     console.log(socket.id);
+
+    socket.on('boardBuilt', (board) => {
+      socket.broadcast.emit('boardBuilt', board)
+    })
+
+    socket.on('boardCleared', () => {
+      socket.broadcast.emit('boardCleared')
+    })
 
     socket.on('questionClicked', (question) => {
       io.emit('displayQuestion', question);
