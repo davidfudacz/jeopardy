@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { Question, Category } = require('../../models');
 
+
+router.param('questionId', async (req, res, next, questionId) => {
+  try {
+    const question = await Question.findById(questionId)
+    req.question = question;
+    next();
+  }
+  catch (err) {
+    console.log(err);
+  }
+})
+
 router.get('/', function (req, res) {
   Question.findAll({ include: Category })
     .then((questions) => {
@@ -12,11 +24,7 @@ router.get('/', function (req, res) {
 
 //   /api/questions/
 router.get('/:questionId', function (req, res) {
-  Question.findById(req.params.questionId) 
-  .then((question) => {
-      res.json(question);
-    })
-    .catch(console.error.bind(console));
+  res.json(req.question);
 });
 
 
@@ -27,10 +35,10 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
   try {
     const categoryCount = req.params.categoryCount;
     const board = [];
-  
+
     const buildCategory = async (categoryId) => {
       const category = await Category.findById(categoryId);
-  
+
       const questions = await Question.findAll({
         where: {
           categoryId: category.id
@@ -55,15 +63,15 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
         questions: questionsArr
       }
     }
-  
-  
+
+
     // const builtCategory = await buildCategory(1);
-  
+
     for (let i = 0; i < categoryCount; i++) {
-      let builtCategory = await buildCategory(i+1);
+      let builtCategory = await buildCategory(i + 1);
       board.push(builtCategory);
     }
-    
+
     res.json(board)
 
   } catch (err) {
@@ -72,19 +80,35 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
 
 })
 
-router.put('/guessed/correctly/:questionId', (req, res, next) => {
-
-  Question.findById(req.params.questionId)
-  .then(question => question.increment('guessedRight'))
-  .then(result => res.json(result))
-  .catch(console.error.bind(console));
+router.put('/answered/correctly/:questionId', async (req, res, next) => {
+  try {
+    await req.question.increment('guessedRight')
+    res.sendStatus(201)
+  }
+  catch (err) {
+    console.log(err);
+  }
 })
 
-router.put('/guessed/incorrectly/:questionId', (req, res, next) => {
-  Question.findById(req.params.questionId)
-  .then(question => question.increment('guessedWrong'))
-  .then(result => res.json(result))
-  .catch(console.error.bind(console));
+router.put('/answered/incorrectly/:questionId', async (req, res, next) => {
+  try {
+    await req.question.increment('guessedWrong')
+    res.sendStatus(201)
+  }
+  catch (err) {
+    console.log(err);
+  }
+})
+
+router.put('/notAnswered/:questionId', async (req, res, next) => {
+  try {
+    console.log('hello');
+    await req.question.increment('notAnswered')
+    res.sendStatus(201)
+  }
+  catch (err) {
+    console.log(err);
+  }
 })
 
 

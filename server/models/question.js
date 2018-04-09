@@ -14,12 +14,12 @@ const Question = db.define('question', {
     allowNull: false,
   },
 
-  guessedRight: {
+  answeredCorrectly: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
 
-  guessedWrong: {
+  answeredIncorrectly: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
@@ -46,8 +46,8 @@ const Question = db.define('question', {
   totalGuesses: {
     type: Sequelize.VIRTUAL,
     get: function () {
-      let right = this.getDataValue('guessedRight');
-      let wrong = this.getDataValue('guessedWrong');
+      let right = this.getDataValue('answeredCorrectly');
+      let wrong = this.getDataValue('answeredIncorrectly');
 
       return right + wrong;
     }
@@ -56,8 +56,8 @@ const Question = db.define('question', {
   pointValue: {
     type: Sequelize.VIRTUAL,
     get: function () {
-      let right = this.getDataValue('guessedRight');
-      let wrong = this.getDataValue('guessedWrong');
+      let right = this.getDataValue('answeredCorrectly');
+      let wrong = this.getDataValue('answeredIncorrectly');
       let total = right + wrong;
       let initialDifficulty = this.getDataValue('initialDifficulty');
       if ((total) < 10) return (initialDifficulty + 1) * 100;

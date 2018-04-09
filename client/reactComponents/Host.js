@@ -16,14 +16,14 @@ function Host(props) {
           ? <Question />
           : <Board />
       }
-        <AnswerPanel />
+        <AnswerPanel question={props.currentQuestion} />
       </div>
       <HostControlPanel />
     </div>
   )
 }
 
-const mapStateToProps = ({questionActive}) => ({questionActive});
+const mapStateToProps = ({questionActive, currentQuestion}) => ({questionActive, currentQuestion});
 
 const mapDispatchToProps = null;
 

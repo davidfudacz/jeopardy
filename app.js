@@ -39,6 +39,10 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('boardCleared')
     })
 
+    socket.on('currentQuestion', (question) => {
+      socket.broadcast.emit('currentQuestion', question);
+    })
+
     socket.on('questionClicked', (question) => {
       io.emit('displayQuestion', question);
       console.log('Points:', question.pointVal);

@@ -124,7 +124,7 @@ module.exports = () => {
     name: '1802-FSA-CH'
   },{returning:true})
 
-  Promise.all([students,fellows,instructors,cohort])
+  Promise.all([students, fellows, instructors, cohort])
     .then(([students, fellows, instructors, cohort]) => {
       students.forEach(student => {student.addCohort(cohort, {through : { userType: 'Student' }})});
       fellows.forEach(fellow => {fellow.addCohort(cohort, {through : { userType: 'Fellow' }})});

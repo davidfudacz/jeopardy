@@ -1,9 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default function Question (props) {
+
+function Question (props) {
   return (
-    <div className="bigQuestion">
+    <div onClick={props.questionAnsweredCorrectly} className="bigQuestion">
       {props.currentQuestion.question.toUpperCase()}
     </div>
   );
+
 }
+const mapStateToProps = ({activeTeam, currentQuestion}) => ({activeTeam, currentQuestion})
+
+const mapDispatchToProps = null;
+
+const QuestionContainer = connect(mapStateToProps, mapDispatchToProps)(Question);
+export default QuestionContainer;
