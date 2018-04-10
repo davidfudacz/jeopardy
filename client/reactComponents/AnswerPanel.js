@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { questionNotAnsweredThunkerator } from '../store';
+import { questionNotAnsweredThunkerator } from '../store';
 
 function AnswerPanel(props) {
   return (
@@ -26,7 +26,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     },
     handleNotAnswered: () => {
-      store.dispatch(questionNotAnsweredThunkerator(ownProps.question.id))
+      //this sets question inactive and clears current question, also logs question stats to DB.
+      dispatch(questionNotAnsweredThunkerator(ownProps.question.id));
     }
   }
 }

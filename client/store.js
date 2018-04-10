@@ -13,7 +13,7 @@ export * from './reducers/score';
 export * from './reducers/teams';
 export * from './reducers/currentQuestion';
 export * from './reducers/timer';
-export * from './reducers';
+export * from './reducers/isHost';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
 export default store;

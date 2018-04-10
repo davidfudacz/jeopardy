@@ -1,6 +1,6 @@
 import socket from '../socket';
 import axios from 'axios';
-import { setQuestionInactive } from '../store';
+import { questionAskedThunkerator, setQuestionInactiveThunkerator } from '../store';
 
 //actions
 const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
@@ -17,13 +17,15 @@ export const clearCurrentQuestion = () => ({
   type: CLEAR_CURRENT_QUESTION,
 })
 
+
+//thunks
 export const questionNotAnsweredThunkerator = (questionId) => {
   return async (dispatch) => {
     try {
-      const updatedQuestion = await axios.put(`/api/questions/notAnswered/${questionId}`);
-      console.log(updatedQuestion.data);
-      dispatch(setQuestionInactive());
+      await axios.put(`/api/questions/notAnswered/${questionId}`);
+      dispatch(setQuestionInactiveThunkerator());
       dispatch(clearCurrentQuestion());
+      dispatch(questionAskedThunkerator(questionId));
     }
     catch (err) {
       console.log(err);
@@ -54,9 +56,8 @@ export const findAndSetCurrentQuestionThunkerator = (board, questionId) => {
     for (let i = 0; i < board.length; i++) {
       let curCategory = board[i].questions;
       for (let j = 0; j < curCategory.length; j++) {
-        console.log(curCategory[j].id, questionId)
         if (+curCategory[j].id === +questionId) {
-          socket.emit('currentQuestion', curCategory[j])
+          socket.emit('setCurrentQuestion', curCategory[j])
           return dispatch(setCurrentQuestion(curCategory[j]));
         }
       }

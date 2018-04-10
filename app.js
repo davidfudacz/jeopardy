@@ -39,8 +39,20 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('boardCleared')
     })
 
-    socket.on('currentQuestion', (question) => {
-      socket.broadcast.emit('currentQuestion', question);
+    socket.on('setCurrentQuestion', (question) => {
+      socket.broadcast.emit('setCurrentQuestion', question);
+    })
+
+    socket.on('questionAsked', (questionId) => {
+      socket.broadcast.emit('questionAsked', questionId);
+    })
+
+    socket.on('questionActive', () => {
+      socket.broadcast.emit('questionActive');
+    })
+
+    socket.on('questionInactive', () => {
+      socket.broadcast.emit('questionInactive');
     })
 
     socket.on('questionClicked', (question) => {

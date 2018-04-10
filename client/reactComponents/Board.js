@@ -11,6 +11,7 @@ function Board (props) {
       props.board.length
       ? props.board.map((category, index) => {
         return (<Categories
+          isHost={props.isHost}
           board={props.board}
           category={index}
           key={category.id * 1000}
@@ -24,7 +25,7 @@ function Board (props) {
   );
 }
 
-const mapStateToProps = ({board, questionActive}) => ({board, questionActive});
+const mapStateToProps = ({board, isHost}) => ({board, isHost});
 
 const mapDispatchToProps = null;
 

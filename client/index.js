@@ -11,8 +11,8 @@ import store,
     setCurrentQuestion,
     setQuestionActive,
     setQuestionInactive,
-    
-    clearCurrentQuestion
+    clearCurrentQuestion,
+    setCurrentQuestionAsked
   } from './store';
 
 
@@ -33,7 +33,20 @@ socket.on('boardCleared', () => {
   store.dispatch(clearCurrentQuestion());
 });
 
-socket.on('currentQuestion', (question) => {
+socket.on('setCurrentQuestion', (question) => {
   store.dispatch(setCurrentQuestion(question));
+});
+
+socket.on('questionActive', () => {
   store.dispatch(setQuestionActive());
+});
+
+socket.on('questionInactive', () => {
+  store.dispatch(setQuestionInactive());
+});
+
+socket.on('questionAsked', (questionId) => {
+  store.dispatch(setCurrentQuestionAsked(questionId));
+  store.dispatch(setQuestionInactive());
+  store.dispatch(clearCurrentQuestion());
 });

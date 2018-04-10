@@ -5,7 +5,14 @@ export default function QuestionsColumn(props) {
   return (
     <div className="categoryQuestions">
       {
-        props.questions.map(question => <SingleQuestion board={props.board} key={question.id} question={question} />)
+        props.questions.map(question => (
+          <SingleQuestion
+            board={props.board}
+            key={question.id}
+            question={question}
+            isHost={props.isHost}
+          />)
+        )
       }
     </div>
   );

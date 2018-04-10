@@ -1,12 +1,13 @@
 import React from 'react';
-import { findAndSetCurrentQuestionThunkerator, setQuestionActive } from '../store';
+import { findAndSetCurrentQuestionThunkerator } from '../store';
 import { connect } from 'react-redux';
 
 function SingleQuestion(props) {
   return (
     <div
       className="question"
-      data-id={props.question.id}
+      data-host={props.isHost}
+      data-asked={props.question.asked}
       onClick={props.questionClicked}
       key={props.question.id}>
       {props.question.asked ? '' : props.question.pointVal}
@@ -14,14 +15,14 @@ function SingleQuestion(props) {
   );
 
 }
-const mapStateToProps = null;
+const mapStateToProps = ({isHost}) => ({isHost});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    questionClicked: (event) => {
-      
+    questionClicked: () => {
+      if (ownProps.question.asked) return;
+      if (!ownProps.isHost) return;
       dispatch(findAndSetCurrentQuestionThunkerator(ownProps.board, ownProps.question.id))
-      dispatch(setQuestionActive());
     }
   }
 }

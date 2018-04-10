@@ -190,8 +190,6 @@ body {
   justify-content: center;
 }
 
-
-
 .bigQuestion {
   flex: 5;
   display: flex;
@@ -207,5 +205,10 @@ body {
   text-shadow: 4px 4px black;
   color: white;
   flex-wrap: wrap;
+}
 
+.bigQuestion .instructions {
+  font-size: 20px;
+  color: black;
+  text-shadow: 0 0;
 }

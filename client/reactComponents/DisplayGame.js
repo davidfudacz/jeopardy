@@ -7,11 +7,12 @@ import { connect } from 'react-redux';
 
 
 function DisplayGame(props) {
+  const displayQuestion = !!props.currentQuestion.id;
   return (
     <div id="main">
       <Sidebar />
       {
-        props.questionActive
+        displayQuestion
           ? <Question />
           : <Board />
       }
@@ -19,7 +20,7 @@ function DisplayGame(props) {
   );
 }
 
-const mapStateToProps = ({ questionActive }) => ({ questionActive });
+const mapStateToProps = ({ currentQuestion }) => ({ currentQuestion });
 
 const mapDispatchToProps = null;
 

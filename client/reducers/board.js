@@ -17,9 +17,9 @@ export const clearBoard = () => ({
   type: CLEAR_BOARD
 })
 
-export const setCurrentQuestionAsked = (question) => ({
+export const setCurrentQuestionAsked = (questionId) => ({
   type: SET_CURRENT_QUESTION_ASKED,
-  question
+  questionId
 })
 
 
@@ -45,21 +45,32 @@ export const clearBoardThunkerator = () => {
   }
 }
 
+export const questionAskedThunkerator = (questionId) => {
+  return (dispatch) => {
+    dispatch(setCurrentQuestionAsked(questionId));
+    socket.emit('questionAsked', questionId);
+  }
+}
+
 
 //reducer
 export default (prevState = [], action) => {
-  //helperFuncs
-  // const setQuestionAsAsked = (question) => {
-  //   return prevState.map(category => {
-  //     return 
-  //   })
-  // }
+  // helperFuncs
+  const setQuestionAsAsked = (questionId) => {
+    return prevState.map(category => {
+      category.questions = category.questions.map(question => {
+        if (question.id === questionId) question.asked = true;
+        return question;
+      })
+      return category;
+    })
+  }
   switch (action.type) {
     case GET_BOARD_FROM_SERVER:
       return action.board;
 
     case SET_CURRENT_QUESTION_ASKED:
-      return action.board;
+      return setQuestionAsAsked(action.questionId);
 
     case CLEAR_BOARD:
       return [];

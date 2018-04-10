@@ -10,6 +10,7 @@ import queueOfTeamsToAnswer from './queueOfTeamsToAnswer';
 import score from './score';
 import teams from './teams';
 import timer from './timer';
+import isHost from './isHost';
 
 
 export default combineReducers({
@@ -22,4 +23,5 @@ export default combineReducers({
   score,
   teams,
   timer,
+  isHost,
 });
