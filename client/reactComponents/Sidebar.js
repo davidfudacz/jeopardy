@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function Sidebar(props) {
-  console.log(props)
   return (
     <div className="sidebar">
       <h1>TEAMS</h1>

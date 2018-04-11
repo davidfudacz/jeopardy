@@ -48,8 +48,9 @@ const Question = db.define('question', {
     get: function () {
       let right = this.getDataValue('answeredCorrectly');
       let wrong = this.getDataValue('answeredIncorrectly');
+      let notAnswered = this.getDataValue('notAnswered');
 
-      return right + wrong;
+      return right + wrong + notAnswered;
     }
   },
 
@@ -58,10 +59,11 @@ const Question = db.define('question', {
     get: function () {
       let right = this.getDataValue('answeredCorrectly');
       let wrong = this.getDataValue('answeredIncorrectly');
-      let total = right + wrong;
+      let notAnswered = this.getDataValue('notAnswered');
+      let total = right + wrong + notAnswered;
       let initialDifficulty = this.getDataValue('initialDifficulty');
       if ((total) < 10) return (initialDifficulty + 1) * 100;
-      return Math.ceil((wrong / (total)) * 4) * 100;
+      return Math.ceil((wrong + notAnswered / (total)) * 4) * 100;
     }
   }
 

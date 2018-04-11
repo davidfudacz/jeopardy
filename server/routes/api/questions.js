@@ -28,6 +28,31 @@ router.get('/:questionId', function (req, res) {
 });
 
 
+router.get('/addCategory/:categoryId', async (req, res, next) => {
+  try {
+    const category = await Category.findById(req.params.categoryId);
+    const categoryQuestions = await Question.findAll({
+      where: {
+        categoryId: req.params.categoryId,
+      }
+    })
+    categoryQuestions.sort((a, b) => a.totalGuesses - b.totalGuesses)
+    category.dataValues.questions = [];
+    //so that I can say i * 100 for point values
+    for (let i = 1; i <= 5; i++) {
+      category.dataValues.questions.push(categoryQuestions.find(question => {
+        return question.pointValue === (i * 100);
+      }))
+    }
+    res.json(category)
+
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+})
+
 
 router.get('/buildBoard/:categoryCount', async function (req, res) {
 
@@ -48,14 +73,14 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
       let questionsArr = questions.map(question => {
         return {
           id: question.id,
-          pointVal: question.pointValue,
+          pointValue: question.pointValue,
           question: question.question,
           asked: false,
           answer: question.answer,
         }
       });
       //sort the array by point value
-      questionsArr.sort((a, b) => a.pointVal - b.pointVal);
+      questionsArr.sort((a, b) => a.pointValue - b.pointValue);
 
       return {
         name: category.name,

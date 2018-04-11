@@ -10,7 +10,7 @@ function SingleQuestion(props) {
       data-asked={props.question.asked}
       onClick={props.questionClicked}
       key={props.question.id}>
-      {props.question.asked ? '' : props.question.pointVal}
+      {props.question.asked ? '' : props.question.pointValue}
     </div>
   );
 

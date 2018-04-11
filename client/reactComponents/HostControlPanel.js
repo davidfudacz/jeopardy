@@ -8,7 +8,7 @@ function HostControlPanel(props) {
     <div className="hostControlPanel">
     <BuildGame />
     {
-      props.board.length
+      props.gamePublished
         ? <div className="hostPanelItem button" onClick={props.clearBoard}>Cancel Game</div>
         : <div className="hostPanelItem button" onClick={props.initiateBoard}>Initiate Game</div>
     }
@@ -16,7 +16,7 @@ function HostControlPanel(props) {
   )
 }
 
-const mapStateToProps = ({board}) => ({board});
+const mapStateToProps = ({ board, gamePublished }) => ({ board, gamePublished });
 
 /* eslint no-alert:0 */
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     initiateBoard: () => {
-      dispatch(buildBoardThunkerator(6));
+      dispatch(buildBoardThunkerator(ownProps.board));
     }
 
   }

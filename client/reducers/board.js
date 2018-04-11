@@ -20,7 +20,7 @@ export const clearBoard = () => ({
 
 export const addCategory = (category) => ({
   type: ADD_CATEGORY,
-  category
+  category,
 })
 
 export const setCurrentQuestionAsked = (questionId) => ({
@@ -30,17 +30,9 @@ export const setCurrentQuestionAsked = (questionId) => ({
 
 
 //thunks
-export const buildBoardThunkerator = (numOfCategories) => {
-  return async (dispatch) => {
-    try {
-      const boardResult = await axios.get('/api/questions/buildBoard/' + numOfCategories)
-      dispatch(getBoardFromServer(boardResult.data))
-      socket.emit('boardBuilt', boardResult.data);
-      return boardResult.data;
-    }
-    catch (err) {
-      console.log(err);
-    }
+export const buildBoardThunkerator = (board) => {
+  return (dispatch) => {
+      socket.emit('boardBuilt', board);
   }
 }
 
@@ -58,6 +50,19 @@ export const questionAskedThunkerator = (questionId) => {
   }
 }
 
+export const addCategoryThunkerator = (categoryId) => {
+  return async (dispatch) => {
+    try {
+      const category = await axios.get(`/api/questions/addCategory/${categoryId}`)
+      dispatch(addCategory(category.data));
+      console.log(category.data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+}
+
 
 //reducer
 export default (prevState = [], action) => {
@@ -71,9 +76,13 @@ export default (prevState = [], action) => {
       return category;
     })
   }
+
   switch (action.type) {
     case GET_BOARD_FROM_SERVER:
       return action.board;
+
+    case ADD_CATEGORY:
+      return [...prevState, action.category];
 
     case SET_CURRENT_QUESTION_ASKED:
       return setQuestionAsAsked(action.questionId);

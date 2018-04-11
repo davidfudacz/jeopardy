@@ -11,6 +11,7 @@ import score from './score';
 import teams from './teams';
 import timer from './timer';
 import isHost from './isHost';
+import gamePublished from './gamePublished';
 
 
 export default combineReducers({
@@ -24,4 +25,5 @@ export default combineReducers({
   teams,
   timer,
   isHost,
+  gamePublished,
 });
