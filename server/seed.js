@@ -118,17 +118,17 @@ module.exports = () => {
   },{
     firstName: 'Finn',
     lastName: 'Terdal',
-  }],{returning:true})
+  }],{returning: true})
 
   const cohort = Cohort.create({
     name: '1802-FSA-CH'
-  },{returning:true})
+  },{returning: true})
 
   Promise.all([students, fellows, instructors, cohort])
     .then(([students, fellows, instructors, cohort]) => {
-      students.forEach(student => {student.addCohort(cohort, {through : { userType: 'Student' }})});
-      fellows.forEach(fellow => {fellow.addCohort(cohort, {through : { userType: 'Fellow' }})});
-      instructors.forEach(instructor => {instructor.addCohort(cohort, {through : { userType: 'Instructor' }})});
+      students.forEach(student => {student.addCohort(cohort, {through: { userType: 'Student' }})});
+      fellows.forEach(fellow => {fellow.addCohort(cohort, {through: { userType: 'Fellow' }})});
+      instructors.forEach(instructor => {instructor.addCohort(cohort, {through: { userType: 'Instructor' }})});
 
       console.log('Inital Users created successfully!')
     })

@@ -4,7 +4,7 @@ const db = require('./db');
 
 const UserCohort = db.define('userCohorts', {
   userType: {
-    type: Sequelize.ENUM('Student','Fellow','Instructor')
+    type: Sequelize.ENUM('Student', 'Fellow', 'Instructor')
   }
 })
 

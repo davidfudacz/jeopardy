@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { buildBoardThunkerator, clearBoardThunkerator, setQuestionInactive, clearCurrentQuestion } from '../store';
+import BuildGame from './BuildGame';
 
 function HostControlPanel(props) {
   return (
     <div className="hostControlPanel">
-    <div className="hostPanelItem">Add Team Here</div>
-    <div className="hostPanelItem">Choose categories Here</div>
-    <div className="hostPanelItem">Add Team Here</div>
+    <BuildGame />
     {
       props.board.length
         ? <div className="hostPanelItem button" onClick={props.clearBoard}>Cancel Board</div>
