@@ -6,7 +6,7 @@ const boundConsole = console.error.bind(console);
 
 module.exports = () => {
 
-  const students = User.bulkCreate([{
+  const students = [{
     firstName: 'David',
     lastName: 'Fudacz',
   },{
@@ -87,9 +87,9 @@ module.exports = () => {
   },{
     firstName: 'Roman',
     lastName: 'Zalov',
-  }],{returning:true})
+  }]
 
-  const fellows = User.bulkCreate([{
+  const fellows = [{
     firstName: 'Ben',
     lastName: 'Odisho',
   },{
@@ -107,9 +107,9 @@ module.exports = () => {
   },{
     firstName: 'Patrick',
     lastName: 'Gund',
-  }],{returning:true})
+  }]
 
-  const instructors = User.bulkCreate([{
+  const instructors = [{
     firstName: 'Ben',
     lastName: 'Wilhelm',
   },{
@@ -118,22 +118,37 @@ module.exports = () => {
   },{
     firstName: 'Finn',
     lastName: 'Terdal',
-  }],{returning: true})
+  }]
 
-  const cohort = Cohort.create({
-    name: '1802-FSA-CH'
-  },{returning: true})
+  
+  const createUsers = async (students, instructors, fellows) => {
+    try{
+      const cohort = await Cohort.create({
+        name: '1802-FSA-CH'
+      }, {returning: true})
 
-  Promise.all([students, fellows, instructors, cohort])
-    .then(([students, fellows, instructors, cohort]) => {
-      students.forEach(student => {student.addCohort(cohort, {through: { userType: 'Student' }})});
-      fellows.forEach(fellow => {fellow.addCohort(cohort, {through: { userType: 'Fellow' }})});
-      instructors.forEach(instructor => {instructor.addCohort(cohort, {through: { userType: 'Instructor' }})});
+      const studentPromises = students.map(student => User.create(student))
+      const createdStudents = await Promise.all(studentPromises);
+      cohort.setStudents(createdStudents);
 
-      console.log('Inital Users created successfully!')
-    })
-    .catch(boundConsole);
 
+      const fellowPromises = fellows.map(fellow => User.create(fellow))
+      const createdFellows = await Promise.all(fellowPromises);
+      cohort.setFellows(createdFellows);
+
+
+      const instructorPromises = instructors.map(instructor => User.create(instructor))
+      const createdInstructors = await Promise.all(instructorPromises);
+      cohort.setInstructors(createdInstructors);
+
+    }
+    catch (err) {
+      console.error(err)
+    }
+
+  }
+
+  createUsers(students, instructors, fellows);
 
 
   const makeQuestions = () => {

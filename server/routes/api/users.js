@@ -12,15 +12,8 @@ router.get('/', function (req, res) {
 
 router.get('/fellows/:cohortId', async (req, res, next) => {
   try {
-    const fellows = await UserCohort.findAll({
-      where: {
-        userType: {
-          [Op.ne]: 'Student'
-        },
-        cohortId: req.params.cohortId
-      },
-      include: [{model: User, as: }]////////////////////////////////////////////
-    });
+    const cohort = await Cohort.findById(req.params.cohortId)
+    const fellows = await cohort.getFellows();
     res.json(fellows);
   }
   catch (err) {

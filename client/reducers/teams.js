@@ -1,37 +1,29 @@
 //actions
-const INITIATE_TEAMS = 'INITIATE_TEAMS';
+const ADD_TEAM = 'ADD_TEAM';
+const RESET_TEAMS = 'RESET_TEAMS';
 
 //action creators 
-export const initiateTeams = (teams) => ({
-  type: INITIATE_TEAMS,
-  teams,
+export const addTeam = (team) => ({
+  type: ADD_TEAM,
+  team,
+})
+export const resetTeams = () => ({
+  type: RESET_TEAMS,
 })
 
-const initialState = [
-  {
-    id: 1,
-    name: `Kevin's Team`
-  },
-  {
-    id: 2,
-    name: `Erika's Team`
-  },
-  {
-    id: 3,
-    name: `Ellen's Team`
-  },
-  {
-    id: 4,
-    name: `Ben's Team`
-  }
-]
+const initialState = [];
+
+
 
 //thunks
 
 export default (prevState = initialState, action) => {
   switch (action.type) {
-    case INITIATE_TEAMS:
-      return action.teams;
+    case ADD_TEAM:
+      return [...prevState, action.team];
+    
+    case RESET_TEAMS:
+      return [];
 
     default: return prevState;
   }

@@ -1,42 +1,30 @@
 import React from 'react';
-import store from '../store';
+import { connect } from 'react-redux';
 
-
-export default class Sidebar extends React.Component {
-  constructor () {
-    super();
-    this.state = store.getState();
-  }
-
-  componentDidMount () {
-    this.unsubscribeFromStore = store.subscribe(() => {
-      this.setState(store.getState());
-    })
-  }
-
-  componentWillUnmount () {
-    this.unsubscribeFromStore();
-  }
-
-  render () {
-    return (
-      <div className='sidebar'>
-        <h1>TEAMS</h1>
-        {this.state.teams.map(team => {
-          return (
-            <div key={Math.random() * 10} className="team">
-              <div className="teamName">
-                {team.name}
-              </div>
-              <div className="teamScore">
-                {this.state.score[team.id]}
-              </div>
+function Sidebar(props) {
+  console.log(props)
+  return (
+    <div className="sidebar">
+      <h1>TEAMS</h1>
+      {props.teams.map(team => (
+          <div key={team.fellowId} className="team">
+            <div key={team.fellowId + team.teamName}className="teamName">
+              {team.teamName}
             </div>
-          )
-        })}
-  
-      </div>
-    );
+            <div key={team.fellowId + 'score'}className="teamScore">
+              {props.score[team.fellowId]}
+            </div>
+          </div>
+        )
+      )}
 
-  }
+    </div>
+  );
 }
+
+const mapStateToProps = ({teams, score}) => ({teams, score});
+
+const mapDispatchToProps = null;
+
+const SidebarWrapper = connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default SidebarWrapper;
