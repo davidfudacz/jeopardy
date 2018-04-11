@@ -136,6 +136,25 @@ body {
   font-size: 15px;
 }
 
+.hostPanelItem.categories {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.hostPanelItem h5 {
+  margin: 5px;
+}
+
+.hostPanelItem.button.category {
+  flex: 1;
+  flex-basis: 33%;
+  min-width: 50px;
+  min-height: 25px;
+  margin: 5px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
 .answerButtons {
   width: 60%;
   display: flex;

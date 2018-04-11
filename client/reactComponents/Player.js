@@ -1,13 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function Player (props) {
+function Player(props) {
   return (
-    <h1>Player page</h1>
+    <div>
+      <label>Choose your team</label>
+      <select>
+        {
+          props.teams.map(team => <option key={team.fellowId} value={team.fellowId} >{team.name}</option>)
+        }
+      </select>
+    </div>
   )
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = ({ teams }) => ({ teams });
 
 const mapDispatchToProps = null;
 

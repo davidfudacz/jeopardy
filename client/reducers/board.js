@@ -5,6 +5,7 @@ import socket from '../socket';
 const GET_BOARD_FROM_SERVER = 'GET_BOARD_FROM_SERVER';
 const CLEAR_BOARD = 'CLEAR_BOARD';
 const SET_CURRENT_QUESTION_ASKED = 'SET_CURRENT_QUESTION_ASKED';
+const ADD_CATEGORY = 'ADD_CATEGORY';
 
 
 //action creators
@@ -15,6 +16,11 @@ export const getBoardFromServer = (board) => ({
 
 export const clearBoard = () => ({
   type: CLEAR_BOARD
+})
+
+export const addCategory = (category) => ({
+  type: ADD_CATEGORY,
+  category
 })
 
 export const setCurrentQuestionAsked = (questionId) => ({

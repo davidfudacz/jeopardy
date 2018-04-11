@@ -9,8 +9,8 @@ function HostControlPanel(props) {
     <BuildGame />
     {
       props.board.length
-        ? <div className="hostPanelItem button" onClick={props.clearBoard}>Cancel Board</div>
-        : <div className="hostPanelItem button" onClick={props.initiateBoard}>Initiate Board</div>
+        ? <div className="hostPanelItem button" onClick={props.clearBoard}>Cancel Game</div>
+        : <div className="hostPanelItem button" onClick={props.initiateBoard}>Initiate Game</div>
     }
     </div>
   )
