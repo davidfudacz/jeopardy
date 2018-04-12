@@ -2,15 +2,15 @@ import axios from 'axios';
 import socket from '../socket';
 
 
-const GET_BOARD_FROM_SERVER = 'GET_BOARD_FROM_SERVER';
+const GET_BOARD_FROM_HOST = 'GET_BOARD_FROM_HOST';
 const CLEAR_BOARD = 'CLEAR_BOARD';
 const SET_CURRENT_QUESTION_ASKED = 'SET_CURRENT_QUESTION_ASKED';
 const ADD_CATEGORY = 'ADD_CATEGORY';
 
 
 //action creators
-export const getBoardFromServer = (board) => ({
-  type: GET_BOARD_FROM_SERVER,
+export const getBoardFromHost = (board) => ({
+  type: GET_BOARD_FROM_HOST,
   board
 })
 
@@ -30,9 +30,9 @@ export const setCurrentQuestionAsked = (questionId) => ({
 
 
 //thunks
-export const buildBoardThunkerator = (board) => {
+export const publishGameThunkerator = (board) => {
   return (dispatch) => {
-      socket.emit('boardBuilt', board);
+      socket.emit('publishGame', board);
   }
 }
 
@@ -55,7 +55,6 @@ export const addCategoryThunkerator = (categoryId) => {
     try {
       const category = await axios.get(`/api/questions/addCategory/${categoryId}`)
       dispatch(addCategory(category.data));
-      console.log(category.data);
     }
     catch (err) {
       console.log(err);
@@ -78,7 +77,7 @@ export default (prevState = [], action) => {
   }
 
   switch (action.type) {
-    case GET_BOARD_FROM_SERVER:
+    case GET_BOARD_FROM_HOST:
       return action.board;
 
     case ADD_CATEGORY:

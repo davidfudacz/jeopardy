@@ -1,6 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { buildBoardThunkerator, clearBoardThunkerator, setQuestionInactive, clearCurrentQuestion } from '../store';
+import { 
+  clearBoardThunkerator,
+  setQuestionInactive,
+  clearCurrentQuestion,
+  publishGameThunkerator,
+  publishTeamsThunkerator,
+  publishScoreThunkerator
+} from '../store';
 import BuildGame from './BuildGame';
 
 function HostControlPanel(props) {
@@ -30,7 +37,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     initiateBoard: () => {
-      dispatch(buildBoardThunkerator(ownProps.board));
+      console.log(ownProps);
+      dispatch(publishGameThunkerator(ownProps.board));
+      dispatch(publishTeamsThunkerator(ownProps.teams));
+      dispatch(publishScoreThunkerator(ownProps.score));
     }
 
   }

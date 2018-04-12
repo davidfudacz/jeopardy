@@ -31,8 +31,16 @@ io.on('connection', function (socket) {
     console.log('A new client has connected!');
     console.log(socket.id);
 
-    socket.on('boardBuilt', (board) => {
-      socket.broadcast.emit('boardBuilt', board)
+    socket.on('publishGame', (board) => {
+      socket.broadcast.emit('publishGame', board)
+    })
+
+    socket.on('publishTeams', (teams) => {
+      socket.broadcast.emit('publishTeams', teams)
+    })
+
+    socket.on('publishScore', (score) => {
+      socket.broadcast.emit('publishScore', score)
     })
 
     socket.on('boardCleared', () => {
@@ -55,14 +63,7 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('questionInactive');
     })
 
-    socket.on('questionClicked', (question) => {
-      io.emit('displayQuestion', question);
-      console.log('Points:', question.pointVal);
-      console.log('Question:', question.question);
-    });
-
     socket.on('disconnect', () => {
-
         console.log(":(", socket.id);
     })
 });

@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 
 
 function Board (props) {
+  const showBoard = props.isHost || props.gamePublished;
   return (
     <div className="board">
     {
-      props.board.length
+      showBoard
       ? props.board.map((category, index) => {
         return (<Categories
           isHost={props.isHost}
           board={props.board}
           category={index}
-          key={category.id * 1000}
+          key={'category' + category.id}
           name={category.name}
           questions={category.questions}
         />)
@@ -25,7 +26,7 @@ function Board (props) {
   );
 }
 
-const mapStateToProps = ({board, isHost}) => ({board, isHost});
+const mapStateToProps = ({board, isHost, gamePublished }) => ({board, isHost, gamePublished });
 
 const mapDispatchToProps = null;
 

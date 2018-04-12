@@ -6,13 +6,16 @@ import { Main } from './reactComponents';
 import { Provider } from 'react-redux';
 import socket from './socket';
 import store,
-  { getBoardFromServer,
+  { getBoardFromHost,
+    getScoreFromHost,
     clearBoard,
     setCurrentQuestion,
     setQuestionActive,
     setQuestionInactive,
     clearCurrentQuestion,
-    setCurrentQuestionAsked
+    setCurrentQuestionAsked,
+    setGamePublished,
+    getTeamsFromHost
   } from './store';
 
 
@@ -23,8 +26,17 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-socket.on('boardBuilt', (board) => {
-  store.dispatch(getBoardFromServer(board));
+socket.on('publishGame', (board) => {
+  store.dispatch(getBoardFromHost(board));
+  store.dispatch(setGamePublished());
+});
+
+socket.on('publishTeams', (teams) => {
+  store.dispatch(getTeamsFromHost(teams));
+});
+
+socket.on('publishScore', (score) => {
+  store.dispatch(getScoreFromHost(score));
 });
 
 socket.on('boardCleared', () => {
