@@ -1,17 +1,17 @@
 
 //actions
-const CHANGE_ACTIVE_TEAM = 'CHANGE_ACTIVE_TEAM';
+const ACTIVATE_TEAM = 'ACTIVATE_TEAM';
 const DEACTIVATE_TEAM = 'DEACTIVATE_TEAM';
 
 //action creators
 
 export const changeActiveTeam = (activeTeamId) =>  ({
-  type: CHANGE_ACTIVE_TEAM,
+  type: ACTIVATE_TEAM,
   activeTeamId
 })
 
 export const deactivateTeam = () =>  ({
-  type: CHANGE_ACTIVE_TEAM,
+  type: ACTIVATE_TEAM,
 })
 
 
@@ -20,7 +20,7 @@ export const deactivateTeam = () =>  ({
 export default (prevState = 0, action) => {
   switch (action.type) {
 
-    case CHANGE_ACTIVE_TEAM:
+    case ACTIVATE_TEAM:
       return action.activeTeamId;
 
     case DEACTIVATE_TEAM:

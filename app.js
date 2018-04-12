@@ -39,6 +39,10 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('publishTeams', teams)
     })
 
+    socket.on('teamBuzzed', (teamId) => {
+      socket.broadcast.emit('teamBuzzed', teamId)
+    })
+
     socket.on('publishScore', (score) => {
       socket.broadcast.emit('publishScore', score)
     })

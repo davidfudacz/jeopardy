@@ -15,6 +15,8 @@ export * from './reducers/currentQuestion';
 export * from './reducers/timer';
 export * from './reducers/isHost';
 export * from './reducers/gamePublished';
+export * from './reducers/queueOfTeamsToAnswer';
+export * from './reducers/chosenTeam';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
 export default store;

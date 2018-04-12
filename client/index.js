@@ -15,8 +15,10 @@ import store,
     clearCurrentQuestion,
     setCurrentQuestionAsked,
     setGamePublished,
-    getTeamsFromHost
+    getTeamsFromHost,
+    setGameNotPublished,
   } from './store';
+import { enqueueTeam } from './reducers/queueOfTeamsToAnswer';
 
 
 ReactDOM.render(
@@ -35,6 +37,10 @@ socket.on('publishTeams', (teams) => {
   store.dispatch(getTeamsFromHost(teams));
 });
 
+socket.on('teamBuzzed', (teamId) => {
+  store.dispatch(enqueueTeam(teamId));
+});
+
 socket.on('publishScore', (score) => {
   store.dispatch(getScoreFromHost(score));
 });
@@ -43,6 +49,7 @@ socket.on('boardCleared', () => {
   store.dispatch(clearBoard());
   store.dispatch(setQuestionInactive());
   store.dispatch(clearCurrentQuestion());
+  store.dispatch(setGameNotPublished());
 });
 
 socket.on('setCurrentQuestion', (question) => {

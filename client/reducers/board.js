@@ -1,5 +1,6 @@
 import axios from 'axios';
 import socket from '../socket';
+import { setGameNotPublished } from '../store';
 
 
 const GET_BOARD_FROM_HOST = 'GET_BOARD_FROM_HOST';
@@ -30,15 +31,11 @@ export const setCurrentQuestionAsked = (questionId) => ({
 
 
 //thunks
-export const publishGameThunkerator = (board) => {
-  return (dispatch) => {
-      socket.emit('publishGame', board);
-  }
-}
 
 export const clearBoardThunkerator = () => {
   return (dispatch) => {
     dispatch(clearBoard());
+    dispatch(setGameNotPublished());
     socket.emit('boardCleared');
   }
 }

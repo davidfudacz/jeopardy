@@ -36,6 +36,11 @@ body {
   justify-content: flex-start;
 }
 
+.team.active {
+  background-color: #daba2a;
+  color: black;
+}
+
 .teamName {
   flex: 1;
   display:flex;
@@ -141,7 +146,7 @@ body {
   flex-wrap: wrap;
 }
 
-.hostPanelItem h5 {
+.hostPanelItem h5, h6 {
   margin: 5px;
 }
 
@@ -234,4 +239,16 @@ body {
   font-size: 20px;
   color: black;
   text-shadow: 0 0;
+}
+
+.playerPage {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playerPage.active {
+  background-color: green;
 }

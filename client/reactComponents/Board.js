@@ -20,7 +20,7 @@ function Board (props) {
           questions={category.questions}
         />)
       })
-      : <span>Please wait for the host to initialize the game</span>
+      : <div className="bigQuestion">Please wait for the host to initialize the game</div>
     }
     </div>
   );
