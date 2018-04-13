@@ -23,6 +23,7 @@ export const dequeueTeam = () => ({
 export const handleBuzzThunkerator = (teamId) => {
   return (dispatch) => {
     socket.emit('teamBuzzed', teamId);
+    dispatch(enqueueTeam(teamId));
   }
 }
 
@@ -32,21 +33,19 @@ export default (prevState = [], action) => {
     if (prevState.indexOf(teamId) > -1) {
       return prevState;
     }
-    else {
-      return [...prevState, action.teamId];
-    }
+    return [...prevState, teamId];
   }
 
   switch (action.type) {
 
     case ENQUEUE_TEAM:
       return updateQueue(action.teamId);
-    
-      case RESET_QUEUE:
-        return [];
-    
-      case DEQUEUE_TEAM:
-        return prevState.slice(1);
+
+    case RESET_QUEUE:
+      return [];
+
+    case DEQUEUE_TEAM:
+      return prevState.slice(1);
 
     default: return prevState;
   }

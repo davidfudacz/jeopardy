@@ -107,8 +107,8 @@ router.get('/buildBoard/:categoryCount', async function (req, res) {
 
 router.put('/answered/correctly/:questionId', async (req, res, next) => {
   try {
-    await req.question.increment('guessedRight')
-    res.sendStatus(201)
+    await req.question.increment('answeredCorrectly');
+    res.sendStatus(201);
   }
   catch (err) {
     console.log(err);
@@ -117,8 +117,8 @@ router.put('/answered/correctly/:questionId', async (req, res, next) => {
 
 router.put('/answered/incorrectly/:questionId', async (req, res, next) => {
   try {
-    await req.question.increment('guessedWrong')
-    res.sendStatus(201)
+    await req.question.increment('answeredIncorrectly');
+    res.sendStatus(201);
   }
   catch (err) {
     console.log(err);
@@ -127,7 +127,6 @@ router.put('/answered/incorrectly/:questionId', async (req, res, next) => {
 
 router.put('/notAnswered/:questionId', async (req, res, next) => {
   try {
-    console.log('hello');
     await req.question.increment('notAnswered')
     res.sendStatus(201)
   }

@@ -37,7 +37,7 @@ class Host extends Component {
             ? <Question isHost={this.props.isHost} />
             : <Board />
         }
-          <AnswerPanel question={this.props.currentQuestion} />
+          <AnswerPanel queue={this.props.queueOfTeamsToAnswer} question={this.props.currentQuestion} />
         </div>
         <HostControlPanel score={this.props.score} teams={this.props.teams} board={this.props.board}/>
       </div>
@@ -45,7 +45,8 @@ class Host extends Component {
   }
 }
 
-const mapStateToProps = ({board, currentQuestion, isHost, teams, score }) => ({board, currentQuestion, isHost, teams, score });
+const mapStateToProps = ({board, currentQuestion, isHost, teams, score, queueOfTeamsToAnswer }) =>
+  ({board, currentQuestion, isHost, teams, score, queueOfTeamsToAnswer });
 
 const mapDispatchToProps = null;
 

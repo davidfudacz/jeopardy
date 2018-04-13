@@ -43,6 +43,18 @@ io.on('connection', function (socket) {
       socket.broadcast.emit('teamBuzzed', teamId)
     })
 
+    socket.on('decrementScore', (teamId, pointValue) => {
+      socket.broadcast.emit('decrementScore', teamId, pointValue)
+    })
+
+    socket.on('incrementScore', (teamId, pointValue) => {
+      socket.broadcast.emit('incrementScore', teamId, pointValue)
+    })
+
+    socket.on('dequeueTeam', () => {
+      socket.broadcast.emit('dequeueTeam')
+    })
+
     socket.on('publishScore', (score) => {
       socket.broadcast.emit('publishScore', score)
     })

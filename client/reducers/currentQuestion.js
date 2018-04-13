@@ -1,6 +1,13 @@
 import socket from '../socket';
 import axios from 'axios';
-import { questionAskedThunkerator, setQuestionInactiveThunkerator } from '../store';
+import {
+  questionAskedThunkerator,
+  setQuestionInactiveThunkerator,
+  dequeueTeam,
+  decrementScore,
+  incrementScore,
+  resetQueue,
+} from '../store';
 
 //actions
 const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
@@ -33,21 +40,45 @@ export const questionNotAnsweredThunkerator = (questionId) => {
   }
 }
 
-export const questionAnsweredIncorrectlyThunkerator = async (question) => {
-  try {
-    await axios.put(`/answered/incorrectly/${question.id}`)
-  }
-  catch (err) {
-    console.log(err);
+export const questionAnsweredIncorrectlyThunkerator = (question, queue) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/questions/answered/incorrectly/${question.id}`);
+      const teamId = queue[0];
+      dispatch(decrementScore(teamId, question.pointValue));
+      socket.emit('decrementScore', teamId, question.pointValue);
+      if (queue.length === 1) {
+        dispatch(setQuestionInactiveThunkerator());
+        dispatch(clearCurrentQuestion());
+        dispatch(questionAskedThunkerator(question.id));
+        dispatch(resetQueue());
+      }
+      else {
+        dispatch(dequeueTeam());
+        socket.emit('dequeueTeam');
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 }
 
-export const questionAnsweredCorrectlyThunkerator = async (question) => {
-  try {
-    await axios.put(`/answered/correctly/${question.id}`)
-  }
-  catch (err) {
-    console.log(err);
+export const questionAnsweredCorrectlyThunkerator = (question, queue) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/questions/answered/correctly/${question.id}`);
+      const teamId = queue[0];
+      dispatch(incrementScore(teamId, question.pointValue));
+      socket.emit('incrementScore', teamId, question.pointValue);
+      dispatch(setQuestionInactiveThunkerator());
+      dispatch(clearCurrentQuestion());
+      dispatch(questionAskedThunkerator(question.id));
+      dispatch(resetQueue());
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 }
 

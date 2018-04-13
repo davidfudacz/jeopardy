@@ -17,8 +17,11 @@ import store,
     setGamePublished,
     getTeamsFromHost,
     setGameNotPublished,
+    enqueueTeam,
+    dequeueTeam,
+    decrementScore,
+    incrementScore,
   } from './store';
-import { enqueueTeam } from './reducers/queueOfTeamsToAnswer';
 
 
 ReactDOM.render(
@@ -39,6 +42,18 @@ socket.on('publishTeams', (teams) => {
 
 socket.on('teamBuzzed', (teamId) => {
   store.dispatch(enqueueTeam(teamId));
+});
+
+socket.on('decrementScore', (teamId, pointValue) => {
+  store.dispatch(decrementScore(teamId, pointValue));
+});
+
+socket.on('incrementScore', (teamId, pointValue) => {
+  store.dispatch(incrementScore(teamId, pointValue));
+});
+
+socket.on('dequeueTeam', () => {
+  store.dispatch(dequeueTeam());
 });
 
 socket.on('publishScore', (score) => {

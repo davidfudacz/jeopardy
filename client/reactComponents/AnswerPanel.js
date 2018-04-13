@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { questionNotAnsweredThunkerator } from '../store';
+import {
+  questionNotAnsweredThunkerator,
+  questionAnsweredIncorrectlyThunkerator,
+  questionAnsweredCorrectlyThunkerator
+} from '../store';
 
 function AnswerPanel(props) {
   return (
@@ -20,10 +24,11 @@ const mapStateToProps = ({currentQuestion, activeTeam}) => ({currentQuestion, ac
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleCorrect: () => {
-      
+      dispatch(questionAnsweredCorrectlyThunkerator(ownProps.question, ownProps.queue));
     },
     handleIncorrect: () => {
-
+      console.log(ownProps);
+      dispatch(questionAnsweredIncorrectlyThunkerator(ownProps.question, ownProps.queue));
     },
     handleNotAnswered: () => {
       //this sets question inactive and clears current question, also logs question stats to DB.

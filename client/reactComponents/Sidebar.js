@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 function Sidebar(props) {
   const showBoard = props.isHost || props.gamePublished;
   const activeTeamId = props.queueOfTeamsToAnswer[0];
+  console.log(activeTeamId);
   return (
     <div className="sidebar">
       <h1>TEAMS</h1>
@@ -11,7 +12,7 @@ function Sidebar(props) {
         showBoard
           ? props.teams.map(team => (
             <div key={team.fellowId} className={activeTeamId === team.fellowId ? `team active` : `team`}>
-              <div key={team.fellowId + team.teamName} className="teamName">
+              <div key={team.fellowId + team.teamName} className={+activeTeamId === +team.fellowId ? `teamName active` : `teamName`}>
                 {team.teamName}
               </div>
               <div key={team.fellowId + 'score'} className="teamScore">
