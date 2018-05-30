@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Main } from './reactComponents';
+import { Main } from './components';
 import { Provider } from 'react-redux';
 import socket from './socket';
 import store,

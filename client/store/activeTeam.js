@@ -14,8 +14,6 @@ export const deactivateTeam = () =>  ({
   type: ACTIVATE_TEAM,
 })
 
-
-
 //reducer
 export default (prevState = 0, action) => {
   switch (action.type) {
