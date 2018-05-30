@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import loggerMiddleware from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import {createLogger} from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 //reducers
 import activeTeam from './activeTeam';
@@ -16,7 +17,6 @@ import isHost from './isHost';
 import gamePublished from './gamePublished';
 import chosenTeam from './chosenTeam';
 
-
 const rootReducer = combineReducers({
   activeTeam,
   board,
@@ -31,8 +31,11 @@ const rootReducer = combineReducers({
   gamePublished,
   chosenTeam,
 });
-
-const middleWareFuncs = applyMiddleware(loggerMiddleware, thunkMiddleware);
+const middleWareFuncs = composeWithDevTools(applyMiddleware(
+  thunkMiddleware,
+  createLogger({collapsed: false})
+))
+const store = createStore(rootReducer, middleWareFuncs)
 
 export * from './board';
 export * from './activeTeam';
@@ -45,6 +48,4 @@ export * from './isHost';
 export * from './gamePublished';
 export * from './queueOfTeamsToAnswer';
 export * from './chosenTeam';
-
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleWareFuncs);
 export default store;

@@ -1,7 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize');
 const db = require('./db');
-const Category = require('./category')
 
 const Question = db.define('question', {
   question: {
